@@ -1,0 +1,29 @@
+buildscript{
+   repositories {
+    jcenter()
+  }
+  dependencies {
+        classpath "com.github.adrianbk:gradle-jvmsrc-plugin:0.6.1"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.github.adrianbk.jvmsrc'
+
+jvmsrc {
+    packageName "com.example.messaging"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+   //test  "org.spockframework:spock-spring:0.7-groovy-2.0"
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
