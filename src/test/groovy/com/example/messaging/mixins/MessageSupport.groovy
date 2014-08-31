@@ -6,4 +6,8 @@ class MessageSupport {
   def validMessage(){
     new Message(content: "Have a nice day!")
   }
+
+  def spamMessage(){
+    new Message(content: "terror")
+  }
 }

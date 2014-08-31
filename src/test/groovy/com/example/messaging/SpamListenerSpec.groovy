@@ -28,6 +28,7 @@ class SpamListenerSpec extends Specification {
 
   @Unroll
   def "Should log when dodgy content"() {
+    listener.auditService = Mock(AuditService)
     def message = new Message(content: text)
     when:
       listener.accept(message)

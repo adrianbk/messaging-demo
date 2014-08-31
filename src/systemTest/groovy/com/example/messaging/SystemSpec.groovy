@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class SystemSpec extends Specification {
 
-  def "do system"(){
+  def "do system"() {
     expect: true
   }
 }

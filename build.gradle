@@ -18,6 +18,12 @@ apply plugin: 'spring-boot'
 apply plugin: 'nebula.optional-base'
 apply plugin: 'provided-base'
 
+ext {
+  groovyVersion = "2.3.6"
+  spockVersion = "0.7-groovy-2.0"
+  bootVersion = "1.1.5.RELEASE"
+}
+
 apply from: "$rootDir/gradle/integTest.gradle"
 apply from: "$rootDir/gradle/systemTest.gradle"
 
@@ -32,12 +38,6 @@ jvmsrc {
 
 repositories {
   jcenter()
-}
-
-ext {
-  groovyVersion = "2.3.6"
-  spockVersion = "0.7-groovy-2.0"
-  bootVersion = "1.1.5.RELEASE"
 }
 
 dependencies {
@@ -55,7 +55,9 @@ dependencies {
 
 }
 
-
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
 }
+
+//We want integTest to run with gradle's check task
+check.dependsOn integTest

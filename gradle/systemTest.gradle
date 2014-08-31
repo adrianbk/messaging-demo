@@ -27,3 +27,15 @@ task systemTest(type: Test) {
   reports.html.destination = file("$test.reports.html.destination/systemTest")
   reports.junitXml.destination =  file("$test.reports.junitXml.destination/systemTest")
 }
+
+// lazy as plugin not applied yet - get idea to see the source folders and external dependencies
+plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
+  idea {
+    module {
+      testSourceDirs += sourceSets.systemTest.groovy.srcDirs
+      testSourceDirs += sourceSets.systemTest.resources.srcDirs
+      scopes.TEST.plus.add(configurations.systemCompile)
+      scopes.TEST.plus.add(configurations.systemRuntime)
+    }
+  }
+}

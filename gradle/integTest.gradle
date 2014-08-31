@@ -5,7 +5,8 @@ configurations {
 }
 
 dependencies {
-//  integrationCompile libs.functionalTest
+  integrationCompile "org.spockframework:spock-spring:${spockVersion}"
+  integrationCompile "org.springframework.boot:spring-boot-starter-test:${bootVersion}"
 }
 
 sourceSets {
@@ -19,7 +20,6 @@ sourceSets {
   }
 }
 
-
 task integTest(type: Test) {
   description = "Run integration tests (located in src/integTest/...)."
 
@@ -31,13 +31,13 @@ task integTest(type: Test) {
 }
 
 // lazy as plugin not applied yet - get idea to see the source folders and external dependencies
-//plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
-//  idea {
-//    module {
-//      testSourceDirs += sourceSets.functionalTest.groovy.srcDirs
-//      testSourceDirs += sourceSets.functionalTest.resources.srcDirs
-//      scopes.TEST.plus.add(configurations.functTestCompile)
-//      scopes.TEST.plus.add(configurations.functTestRuntime)
-//    }
-//  }
-//}
+plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
+  idea {
+    module {
+      testSourceDirs += sourceSets.integTest.groovy.srcDirs
+      testSourceDirs += sourceSets.integTest.resources.srcDirs
+      scopes.TEST.plus.add(configurations.integrationCompile)
+      scopes.TEST.plus.add(configurations.integrationRuntime)
+    }
+  }
+}
