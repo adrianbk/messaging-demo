@@ -1,0 +1,43 @@
+
+configurations {
+  integrationCompile.extendsFrom testCompile
+  integrationRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+//  integrationCompile libs.functionalTest
+}
+
+sourceSets {
+  integTest {
+    resources.srcDir file('src/integTest/resources')
+    compileClasspath = sourceSets.main.output + configurations.integrationCompile
+    runtimeClasspath = output + compileClasspath + configurations.integrationRuntime
+    groovy {
+      srcDir 'src/integTest/groovy'
+    }
+  }
+}
+
+
+task integTest(type: Test) {
+  description = "Run integration tests (located in src/integTest/...)."
+
+  testClassesDir = sourceSets.integTest.output.classesDir
+  classpath = sourceSets.integTest.runtimeClasspath
+
+  reports.html.destination = file("$test.reports.html.destination/integTest")
+  reports.junitXml.destination =  file("$test.reports.junitXml.destination/integTest")
+}
+
+// lazy as plugin not applied yet - get idea to see the source folders and external dependencies
+//plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
+//  idea {
+//    module {
+//      testSourceDirs += sourceSets.functionalTest.groovy.srcDirs
+//      testSourceDirs += sourceSets.functionalTest.resources.srcDirs
+//      scopes.TEST.plus.add(configurations.functTestCompile)
+//      scopes.TEST.plus.add(configurations.functTestRuntime)
+//    }
+//  }
+//}

@@ -1,0 +1,29 @@
+configurations {
+  systemCompile.extendsFrom testCompile
+  systemRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+//  systemCompile libs.functionalTest
+}
+
+sourceSets {
+  systemTest {
+    resources.srcDir file('src/systemTest/resources')
+    compileClasspath = sourceSets.main.output + configurations.systemCompile
+    runtimeClasspath = output + compileClasspath + configurations.systemRuntime
+    groovy {
+      srcDir 'src/systemTest/groovy'
+    }
+  }
+}
+
+task systemTest(type: Test) {
+  description = "Run system tests (located in src/systemTest/...)."
+
+  testClassesDir = sourceSets.systemTest.output.classesDir
+  classpath = sourceSets.systemTest.runtimeClasspath
+
+  reports.html.destination = file("$test.reports.html.destination/systemTest")
+  reports.junitXml.destination =  file("$test.reports.junitXml.destination/systemTest")
+}

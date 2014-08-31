@@ -1,15 +1,23 @@
-buildscript{
-   repositories {
+buildscript {
+  repositories {
     jcenter()
   }
   dependencies {
-        classpath "com.github.adrianbk:gradle-jvmsrc-plugin:0.6.1"
-    }
+    classpath "com.github.adrianbk:gradle-jvmsrc-plugin:0.6.1"
+    classpath "com.netflix.nebula:gradle-extra-configurations-plugin:1.12.3"
+  }
 }
 
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'com.github.adrianbk.jvmsrc'
+
+//Optional and provided dependency scopes like maven
+apply plugin: 'nebula.optional-base'
+apply plugin: 'provided-base'
+
+apply from: "$rootDir/gradle/integTest.gradle"
+apply from: "$rootDir/gradle/systemTest.gradle"
 
 group = "com.example.messaging"
 version = "0.0.1"
@@ -21,21 +29,21 @@ jvmsrc {
 }
 
 repositories {
-    jcenter()
+  jcenter()
 }
 
 ext {
   groovyVersion = "2.3.6"
   spockVersion = "0.7-groovy-2.0"
 }
-  dependencies {
-    testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-    testCompile "cglib:cglib-nodep:2.2"
-    testCompile "org.objenesis:objenesis:1.2"
-    testCompile "org.spockframework:spock-core:${spockVersion}"
+dependencies {
+  testCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+  testCompile "cglib:cglib-nodep:2.2"
+  testCompile "org.objenesis:objenesis:1.2"
+  testCompile "org.spockframework:spock-core:${spockVersion}"
 }
 
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+  gradleVersion = '2.0'
 }
