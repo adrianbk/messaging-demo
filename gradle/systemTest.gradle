@@ -4,7 +4,7 @@ configurations {
 }
 
 dependencies {
-//  systemCompile libs.functionalTest
+  systemCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 }
 
 sourceSets {
