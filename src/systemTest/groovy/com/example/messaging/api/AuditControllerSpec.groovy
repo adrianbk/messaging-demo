@@ -5,6 +5,7 @@ import groovyx.net.http.RESTClient
 import spock.lang.Specification
 
 class AuditControllerSpec extends Specification {
+  String host = System.getenv('TARGET_HOST') ?: 'localhost'
 
   def "should add and retrieve a spam message"() {
     given:
@@ -14,7 +15,7 @@ class AuditControllerSpec extends Specification {
         id messageId
         content 'someContent'
       }
-      def http = new RESTClient('http://localhost:8080')
+      def http = new RESTClient("http://${host}:8080")
     when:
       def response = http.post(
               contentType: 'application/json',
