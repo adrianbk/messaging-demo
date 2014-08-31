@@ -19,4 +19,12 @@ public class Message {
 
   private String id;
   private String content;
+
+  @Override
+  public String toString() {
+    return "Message{" +
+            "id='" + id + '\'' +
+            ", content='" + content + '\'' +
+            '}';
+  }
 }
