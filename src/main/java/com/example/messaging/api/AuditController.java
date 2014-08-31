@@ -13,14 +13,14 @@ public class AuditController {
   @Autowired
   private AuditService auditService;
 
-  @RequestMapping(value="/spam/{messageId}", method= RequestMethod.GET)
+  @RequestMapping(value = "/spam/{messageId}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   public Message getMessage(@PathVariable String messageId) {
     Message message = auditService.get(messageId);
     return message;
   }
 
-  @RequestMapping(value = "/spam", method=RequestMethod.POST)
+  @RequestMapping(value = "/spam", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
   public void addMessage(@RequestBody Message message) {
     auditService.spam(message);

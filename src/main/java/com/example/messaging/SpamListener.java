@@ -15,7 +15,7 @@ public class SpamListener implements Subscriber {
     logger.info("Accepted message {}", message);
 
     String content = message.getContent();
-    if(blackList.contains(content)){
+    if (blackList.contains(content)) {
       logger.error("Nasty content {}", message);
       auditService.spam(message);
     }
