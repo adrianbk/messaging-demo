@@ -1,2 +1,7 @@
 .gradle
 build/
+.DS_Store
+*.iml
+.idea/
+!.idea/codeStyleSettings.xml
+!.idea/vcs.xml
