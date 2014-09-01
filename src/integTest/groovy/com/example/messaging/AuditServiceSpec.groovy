@@ -5,10 +5,12 @@ import org.springframework.boot.test.IntegrationTest
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.transaction.TransactionConfiguration
+import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 
 @ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = Application.class)
+@WebAppConfiguration
 @IntegrationTest
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional

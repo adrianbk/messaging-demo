@@ -39,4 +39,18 @@ class GatewaySpec extends Specification {
       def ex = thrown IllegalArgumentException
       ex.message == "No subscribers"
   }
+
+  def "should mock"(){
+    given:
+      def auditService = Mock(AuditService)
+      auditService.get(_) >> new Message(content: 'hello')
+
+    when:
+      def message = auditService.get("df")
+    then:
+      message.content == 'hello'
+
+  }
+
+
 }
